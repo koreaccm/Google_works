@@ -9,6 +9,7 @@ from xlrd import open_workbook
 xls = open_workbook('test.xls')
 sheet0 = xls.sheet_by_index(0)
 for row_index in range(sheet0.nrows):
+    #여기서 한글 인코딩 문제가 생
     keyword = sheet0.cell(row_index,0).value
     query_args = {'query':keyword}
     encoded_args = 'search.naver?'+ urllib.urlencode(query_args)
