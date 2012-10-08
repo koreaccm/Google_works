@@ -66,5 +66,4 @@ print sheet0.col_types(0,1,2)
 
 
 
-
     
