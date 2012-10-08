@@ -1,4 +1,4 @@
-#-*- encoding: cp949 -*-
+#-*- coding: utf-8 -*-
 import httplib, urllib, urllib2
 import StringIO, gzip
 
@@ -15,4 +15,4 @@ response = urllib2.urlopen(request, encoded_args)
 compressedstream = StringIO.StringIO(response.read())
 gzipper = gzip.GzipFile(fileobj=compressedstream)
 
-print gzipper.read()
+print gzipper.read().encode('utf-8')
