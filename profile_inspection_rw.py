@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 import urllib, urllib2
 import StringIO, gzip
+#to read xls file
 from xlrd import open_workbook
 
 xls = open_workbook('test.xls')
@@ -19,14 +20,24 @@ for row_index in range(sheet0.nrows):
     compressedstream = StringIO.StringIO(response.read())
     gzipper = gzip.GzipFile(fileobj=compressedstream)
 
-    data = gzipper.read(100000).encode('utf-8')
-    print data
-    
+    data = gzipper.read().encode('utf-8')
+
+    #to write in xls file
+    from tempfile import TemporaryFile
+    from xlwt import Workbook
+        
+    book = Workbook()
+    sheet1 = book.add_sheet('result 1', cell_overwrite_ok=True)
+        
     if (data.find('people_info section') != -1 ):
+       
+        sheet1.write(row_index,6,'yes')
+        book.save('result.xls')
+        book.save(TemporaryFile())
+        
         print 'yes'
     else:
         print 'no'
-
-        
-
+    
+    
     
