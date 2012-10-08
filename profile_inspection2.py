@@ -11,7 +11,7 @@ sheet0 = xls.sheet_by_index(0)
 for row_index in range(sheet0.nrows):
     #여기서 한글 인코딩 문제가 생
     keyword = sheet0.cell(row_index,0).value
-    query_args = {'query':keyword}
+    query_args = {'ie':'utf8','sm':'stp_hty','where':'se','query':keyword}
     encoded_args = 'search.naver?'+ urllib.urlencode(query_args)
     print encoded_args
 
@@ -23,5 +23,12 @@ for row_index in range(sheet0.nrows):
     compressedstream = StringIO.StringIO(response.read())
     gzipper = gzip.GzipFile(fileobj=compressedstream)
 
-    print gzipper.read().encode('utf-8')
+    data = gzipper.read().encode('utf-8')
+    
+    if (data.find('section') == 1):
+        print 'yes'
+    else:
+        print 'no'
+        
+
     
