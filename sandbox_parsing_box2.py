@@ -27,7 +27,7 @@ for row_index in range(sheet0.nrows):
     params = {'q' : keyword, 'hl' : 'ko'}
     enc_params = urllib.urlencode(params)
     
-    request = urllib2.Request('http://sky-kpkr2.sandbox.google.com/'+'search'+'?'+enc_params)
+    request = urllib2.Request('http://sky-kpkr.sandbox.google.com/'+'search'+'?'+enc_params)
     request.add_header('User-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17')
     request.add_header('Accept-encoding', 'gzip')
     response = urllib2.urlopen(request)
@@ -45,7 +45,7 @@ for row_index in range(sheet0.nrows):
     
     
     if sandbox1 or sandbox2:
-        print "1"
+        print "y"
         
     elif minibox:
         minibox_str = minibox[0].string.encode("utf-8")
@@ -55,7 +55,7 @@ for row_index in range(sheet0.nrows):
         if (minibox_str == minibox_str2):
         #minibox_first = soup.find_all(class_="kno-mcl rhsvw vk_rhsc")
         #m_url = minibox_first[0].a['href'].encode('utf-8')  
-            print "mini"
+            print "n"
         
         else:
             print "what"
@@ -64,9 +64,9 @@ for row_index in range(sheet0.nrows):
         print "top onebox"
             
     else: 
-        print "nobox"
-
-
+        #nobox
+        print "0"
+        
     
     
 
