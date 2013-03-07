@@ -17,16 +17,16 @@ from xlwt import Workbook
 book = Workbook()
 sheet1 = book.add_sheet('result 1') 
 
-import re
-#import time
+import re, time
 
 for row_index in range(sheet0.nrows):
 
-#    time.sleep(0.7)
+    time.sleep(0.5)
     keyword = sheet0.cell(row_index,0).value
     params = {'q' : keyword, 'hl' : 'ko'}
     enc_params = urllib.urlencode(params)
     
+    #검색결과 페이지에 우측 박스가 나오지 않는다. url parameter가 빠져서 그런 것으로 추정 중
     request = urllib2.Request('http://sky-kpkr.sandbox.google.com/'+'search'+'?'+enc_params)
     request.add_header('User-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17')
     request.add_header('Accept-encoding', 'gzip')
@@ -36,37 +36,29 @@ for row_index in range(sheet0.nrows):
 
     data = gzipper.read()
     soup = BeautifulSoup(data)
-          
-    sandbox1 = soup.find_all(class_="kno-ec rhsvw vk_rhsc kno-ec-si")
-    sandbox2 = soup.find_all(class_="kno-ec rhsvw vk_rhsc")
-    minibox = soup.find_all(class_="kno-sh")
-    #class = "kno-sh ellip" : 함께 찾은 검색어도 minibox에 들어가버림
-    topbox = soup.find_all(class_="g ssr noknav")
     
+  
+    #attribute div class = "kno-ft kno-xs", table class = "kno-fs ts"
     
-    if sandbox1 or sandbox2:
-        print "y"
+    #caution: probably, find_all mehtod can't ....
         
-    elif minibox:
-        minibox_str = minibox[0].string.encode("utf-8")
-        text = "이것을 찾으셨나요?"
-        minibox_str2 = text.encode("utf-8")
-        
-        if (minibox_str == minibox_str2):
-        #minibox_first = soup.find_all(class_="kno-mcl rhsvw vk_rhsc")
-        #m_url = minibox_first[0].a['href'].encode('utf-8')  
-            print "n"
-        
+    desctag = soup.find_all(class_="kno-desc kno-fb-ctx")
+    
+    if desctag:
+        desctag_a = desctag[0].a
+        #case: 바이오니아, tag classs는 존재하지만 text는 없음
+        if desctag_a:
+            print "0"
         else:
-            print "what"
-                
-    elif topbox:
-        print "top onebox"
-            
-    else: 
-        #nobox
-        print "0"
-        
+            #no description
+            print "11"
+    else:
+        #no description
+        print "1"
+    
+
+    
+
     
     
 
