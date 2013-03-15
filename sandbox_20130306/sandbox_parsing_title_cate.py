@@ -37,14 +37,12 @@ for row_index in range(sheet0.nrows):
     data = gzipper.read()
     soup = BeautifulSoup(data)
     
-    imgtag = soup.find_all(id="media_result_group")
+    title_category = soup.find_all(class_="kno-ecr-st")
     
-    
-    if imgtag:
-        print "1"
+    if title_category:
+        print "y"
     
     else:
-        #invalid(no img) = 0
         print "0"
 
     

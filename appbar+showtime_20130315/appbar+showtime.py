@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from xlrd import open_workbook
 
 
-xls = open_workbook('test2.xls')
+xls = open_workbook('query.xls')
 sheet0 = xls.sheet_by_index(0)
 
 #to write in xls file
@@ -36,22 +36,10 @@ for row_index in range(sheet0.nrows):
 
     data = gzipper.read()
     soup = BeautifulSoup(data)
+    appbar = soup.find_all(class_="appbar")
     
-    imgtag = soup.find_all(id="media_result_group")
-    
-    
-    if imgtag:
-        print "1"
+    if title_category:
+        print "y"
     
     else:
-        #invalid(no img) = 0
         print "0"
-
-    
-
-    
-    
-
-    
-    
-   
