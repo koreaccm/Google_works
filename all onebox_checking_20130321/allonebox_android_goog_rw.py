@@ -49,7 +49,8 @@ for row_index in range(sheet0.nrows):
         sheet1.write(row_index, 1, "kp"+len(sandbox))
     elif onebox:
         sheet1.write(row_index, 1, "srs"+len(onebox))
-    
+
+#이 부분 다시 코딩!!!!!    
     
             
     else: 
