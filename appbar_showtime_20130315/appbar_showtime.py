@@ -36,10 +36,11 @@ for row_index in range(sheet0.nrows):
 
     data = gzipper.read()
     soup = BeautifulSoup(data)
-    appbar = soup.find_all(class_="appbar")
+    appbar = soup.find_all(id="kappbar")
+    showtime = soup.find_all(class_="g tpo knavi obcontainer")
     
-    if title_category:
+    if appbar:
         print "y"
-    
+
     else:
         print "0"
