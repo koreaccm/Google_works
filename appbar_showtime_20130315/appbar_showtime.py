@@ -39,7 +39,7 @@ for row_index in range(sheet0.nrows):
     appbar = soup.find_all(id="kappbar")
     showtime = soup.find_all(class_="g tpo knavi obcontainer")
     
-    if appbar:
+    if showtime:
         print "y"
 
     else:

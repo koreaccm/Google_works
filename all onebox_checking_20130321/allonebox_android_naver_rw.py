@@ -20,16 +20,19 @@ sheet1 = book.add_sheet('result 1', cell_overwrite_ok=True)
 import re
 #import time
 
+
+except_cate = [u'바로가기',u'동영상',u'사이트',u'이미지',u'뉴스',u'오픈캐스트',u'매거진',u'지도',u'파워링크']
+
 for row_index in range(sheet0.nrows):
 
 #    time.sleep(0.7)
     keyword = sheet0.cell(row_index,0).value
-    params = {'query' : keyword}
+    params = {'query' : keyword, 'where':'m'}
     enc_params = urllib.urlencode(params)
     
     request = urllib2.Request('http://m.search.naver.com/'+'search.naver'+'?'+enc_params)
     #user-agent 모바일로 변경
-    request.add_header('User-agent', 'Mozilla/5.0 (Linux; U; Android 2.3.3; ko-kr; SHW-M250S Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1')
+    request.add_header('User-agent', 'Mozilla/5.0 (Linux; Android 4.1.1; Galaxy Nexus Build/JRO03C) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19')
     request.add_header('Accept-encoding', 'gzip')
     response = urllib2.urlopen(request)
     compressedstream = StringIO.StringIO(response.read())
@@ -37,53 +40,39 @@ for row_index in range(sheet0.nrows):
 
     data = gzipper.read()
     soup = BeautifulSoup(data)
+
+    section = soup.find_all('section')
+    
+    h2_tag = [section[i].h2.string.encode('utf-8') for i in range(5, len(section))]
+    clean = filter(None, h2_tag)
+
+# None type을 먼저 걸러낸 뒤에 encode 해야함.
+
+
+    print clean    
+"""
+    j=0
+    while j < len(h2_tag):
+        if h2_tag[j] in except_cate:
+            del h2_tag[j]
+        else:
+            j+=1
+    print h2_tag
+"""
+
+
     
     # naver SRP tree는 <section> 순서. 단, "통합웹", "통합웹베스트"는 <div class="sc">
     # class에 csu 값이 포함된 것("cus*", "csu_xxx", "csu xxx")을 찾기 
     
     
-    section=soup.find_all('section')
-    #category=soup.find_all()
-    section
 
-"""    
-    tv=soup.find_all(id='bdcast_area')
-    #radio=
-    movie=soup.find_all(class_='csu_hh cs_movieinfo ca')
-    #theater=
-    music=soup.find_all(id='music_top_id')
-    people=soup.find_all(id='mcontent_people')
-    #event=
-    #sports=
-    place=soup.find_all(class_='csu_hh cs_local')
-    food=soup.find_all(id='dss_ingredient_body')
-    #gov=
-    #game=
-    #country=
-    school=soup.find_all(class_='csu3 cs_university')
-    book=soup.find_all(class_='cs_nbook')
-    term=soup.find_all(id='dic')
-    company=soup.find_all(class_='ccsu_hh cs_finan')
-    #hotel=
-    mobile_app=soup.find_all(class_='csu_hh cs_appl')
-    weather=soup.find_all(class_='csu_hh cs_weather')
-    enc=soup.find_all(class_='li1 kdic')
-    """
-"""
-    onebox=soup.find_all(class_="csu3")
+    #sections=soup.section[0]
+
     
-    if tv in section[0]:
-        print 'tv'
-"""
 
-"""    
-    if sandbox:
-        sheet1.write(row_index, 1, "kp"+len(sandbox))              
-    else: 
-        sheet1.write(row_index, 1, "0")
-"""
+
         
-#book.save('naver_result.xls')    
     
 
     
