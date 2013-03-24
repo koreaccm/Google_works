@@ -26,7 +26,7 @@ except_cate = [u'바로가기',u'동영상',u'사이트',u'이미지',u'뉴스',
 for row_index in range(sheet0.nrows):
 
 #    time.sleep(0.7)
-    keyword = sheet0.cell(row_index,0).value
+    keyword = sheet0.cell(row_index,0).value.encode('utf-8')
     params = {'query' : keyword, 'where':'m'}
     enc_params = urllib.urlencode(params)
     
@@ -43,38 +43,25 @@ for row_index in range(sheet0.nrows):
 
     section = soup.find_all('section')
     
-    h2_tag = [section[i].h2.string.encode('utf-8') for i in range(5, len(section))]
-    clean = filter(None, h2_tag)
-
-# None type을 먼저 걸러낸 뒤에 encode 해야함.
+    h2_tag = [section[i].h2 for i in range(5, len(section))]
+    h2_tag_cl = filter(None, h2_tag)
 
 
-    print clean    
-"""
     j=0
-    while j < len(h2_tag):
-        if h2_tag[j] in except_cate:
-            del h2_tag[j]
+    while j < len(h2_tag_cl):
+        if h2_tag_cl[j] in except_cate:
+            del h2_tag_cl[j]
         else:
             j+=1
-    print h2_tag
-"""
+    
+    h2_str=[]
+    for k in range(len(h2_tag_cl)):
+        h2_str += [h2_tag_cl[k].get_text().encode('utf-8')]
+    print h2_str                    
+
 
 
     
     # naver SRP tree는 <section> 순서. 단, "통합웹", "통합웹베스트"는 <div class="sc">
     # class에 csu 값이 포함된 것("cus*", "csu_xxx", "csu xxx")을 찾기 
     
-    
-
-    #sections=soup.section[0]
-
-    
-
-
-        
-    
-
-    
-    
-   
