@@ -42,16 +42,20 @@ for row_index in range(sheet0.nrows):
     #class = "kno-sh ellip" : 함께 찾은 검색어도 minibox에 들어가버림
     onebox = soup.find_all(class_="g ssr noknav")
     #q="은교"의 경우, onebox가 SRP 하단에 위치함.
-    desctag = soup.find_all(class_="kno-desc kno-fb-ctx")
+    topstuff = soup.find_all("#topstuff")
     
+    
+    
+    # sandbox & onebox, 또는 onebox & topstuff, 또는 topstuff & sandbox, 또는 sandbox & onebox & topstuff 일 경우에 모두 박스 종류값을 리턴해줘야한다.
+    # 고민 중
     
     if sandbox:
         sheet1.write(row_index, 1, "kp"+len(sandbox))
     elif onebox:
         sheet1.write(row_index, 1, "srs"+len(onebox))
+    elif topstuff:
+        sheet1.write(row_index, 1, "srs"+len(onebox))
 
-#이 부분 다시 코딩!!!!!    
-    
             
     else: 
         #nobox
