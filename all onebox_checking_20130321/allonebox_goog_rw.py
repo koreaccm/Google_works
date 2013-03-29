@@ -27,9 +27,9 @@ for row_index in range(sheet0.nrows):
     params = {'q' : keyword, 'hl' : 'ko'}
     enc_params = urllib.urlencode(params)
     
-    request = urllib2.Request('http://www.google.co.kr/'+'search'+'?'+enc_params)
+    request = urllib2.Request('http://sky-kpkr.sandbox.google.com/'+'search'+'?'+enc_params)
     #user-agent 모바일로 변경
-    request.add_header('User-agent', 'Mozilla/5.0 (Linux; U; Android 2.3.3; ko-kr; SHW-M250S Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1')
+    request.add_header('User-agent', 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari/6533.18.5')
     request.add_header('Accept-encoding', 'gzip')
     response = urllib2.urlopen(request)
     compressedstream = StringIO.StringIO(response.read())
@@ -38,11 +38,10 @@ for row_index in range(sheet0.nrows):
     data = gzipper.read()
     soup = BeautifulSoup(data)
           
-    sandbox = soup.find_all(class_="kno-result")      
+    sandbox = soup.find_all(id="kno-result")      
     #class = "kno-sh ellip" : 함께 찾은 검색어도 minibox에 들어가버림
     onebox = soup.find_all(class_="g ssr noknav")
     #q="은교"의 경우, onebox가 SRP 하단에 위치함.
-    topstuff = soup.find_all("#topstuff")
     
     
     
@@ -50,17 +49,15 @@ for row_index in range(sheet0.nrows):
     # 고민 중
     
     if sandbox:
-        sheet1.write(row_index, 1, "kp"+len(sandbox))
+        sheet1.write(row_index, 1, "kp")
+        print "y"
     elif onebox:
-        sheet1.write(row_index, 1, "srs"+len(onebox))
-    elif topstuff:
-        sheet1.write(row_index, 1, "srs"+len(onebox))
-
-            
+        sheet1.write(row_index, 1, "srs")
+        print "y"
     else: 
         #nobox
         sheet1.write(row_index, 1, "0")
-
+        print "n"
         
 book.save('google_result.xls')    
     

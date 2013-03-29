@@ -40,8 +40,8 @@ for row_index in range(sheet0.nrows):
     
     request = urllib2.Request('http://m.search.naver.com/'+'search.naver'+'?'+enc_params)
     #user-agent 모바일로 변경
-    request.add_header('User-agent', 'Mozilla/5.0 (Linux; U; Android 2.3.5; ko-kr; SHW-M250S Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1')
-    #request.add_header('User-agent', 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari/6533.18.5')
+    #request.add_header('User-agent', 'Mozilla/5.0 (Linux; U; Android 2.3.5; ko-kr; SHW-M250S Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1')
+    request.add_header('User-agent', 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari/6533.18.5')
     request.add_header('Accept-encoding', 'gzip')
     response = urllib2.urlopen(request)
     compressedstream = StringIO.StringIO(response.read())
@@ -90,8 +90,8 @@ for row_index in range(sheet0.nrows):
         else:
             sheet1.write(row_index, rank+1, name)
 
-book.save('naver_result_Gingerbread.xls')
-#book.save('naver_result_iOS.xls')        
+#book.save('naver_result_Gingerbread.xls')
+book.save('naver_result_iOS.xls')        
     
 
     
