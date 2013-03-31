@@ -30,7 +30,7 @@ people_cate = u'인물정보'
 
 for row_index in range(sheet0.nrows):
 
-    time.sleep(10)
+    time.sleep(3)
     s_value = sheet0.cell(row_index,0).value
     if type(s_value) != unicode: s_value = str(s_value)
     

@@ -42,7 +42,8 @@ for row_index in range(sheet0.nrows):
     #class = "kno-sh ellip" : 함께 찾은 검색어도 minibox에 들어가버림
     onebox = soup.find_all(class_="g ssr noknav")
     #q="은교"의 경우, onebox가 SRP 하단에 위치함.
-    
+    #q="표어 뜻"의 경우, class="g tpo"로 li tag로 출력됨.
+    #q="millinery"의 경우, class="head" 이지만 구분기준은 되기 어려움.
     
     
     # sandbox & onebox, 또는 onebox & topstuff, 또는 topstuff & sandbox, 또는 sandbox & onebox & topstuff 일 경우에 모두 박스 종류값을 리턴해줘야한다.
